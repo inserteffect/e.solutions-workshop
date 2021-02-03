@@ -24,6 +24,7 @@ plugins {
 }
 
 apply<SimplePlugin>()
+apply(from = "tasks.gradle.kts")
 
 simple {
     message = "Configured with custom DSL"
@@ -69,34 +70,17 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }
 
-val taskA = tasks.register<Copy>("taskA") {
-    description = "Copy Stuff"
-    from("../a")
-    into("../b")
-    include("**/*")
+/*
+Causes eager task creation and configuration
 
-    println("taskA")
+task.register("name") {
+    configuration...
 }
 
-val taskB = tasks.register<Delete>("taskB") {
-    description = "Delete Stuff"
-    delete("../b")
+task.register("name") only registers the task, but creating and configuration happens later,
+when invoking the task, or when acquiring a reference with tasks.getByName("name").
+*/
+//tasks.getByName("taskB").dependsOn(tasks.getByName("taskA"))
 
-    println("taskB")
-}
-
-val taskC = tasks.register("taskC", Delete::class) {
-    description = "Detete Stuff"
-    delete("../b")
-
-    println("taskC")
-}
-
-val taskE by tasks.registering(Delete::class) {
-    description = "Delete stuff"
-    delete("../b")
-
-    println("taskE")
-}
-
-taskB.dependsOn(taskA)
+// Reference a task without creating and configuration
+tasks.named("taskB").dependsOn(tasks.named("taskA"))
