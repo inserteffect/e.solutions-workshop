@@ -1,9 +1,19 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 
+class SimplePlugin : Plugin<Project> {
+    override fun apply(project: Project) {
+        project.tasks.register("simplePlugin") {
+            println("Hello Plugin")
+        }
+    }
+}
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
 }
+
+apply<SimplePlugin>()
 
 android {
     compileSdkVersion(29)
