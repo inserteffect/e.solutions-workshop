@@ -15,6 +15,9 @@ class SimplePlugin : Plugin<Project> {
     }
 }
 
+fun Project.simple(configure: SimplePluginExtension.() -> Unit): Unit =
+    (this as ExtensionAware).extensions.configure("simplePlugin", configure)
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -22,8 +25,8 @@ plugins {
 
 apply<SimplePlugin>()
 
-configure<SimplePluginExtension> {
-    message = "Configured"
+simple {
+    message = "Configured with custom DSL"
     description = "Some new description"
 }
 
