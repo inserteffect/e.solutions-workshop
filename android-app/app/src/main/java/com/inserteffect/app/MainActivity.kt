@@ -11,5 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Library().init()
+
+        println("API-Key from BuildConfig: ${BuildConfig.API_KEY}")
     }
 }
