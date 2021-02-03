@@ -34,3 +34,14 @@ val taskE by tasks.registering(Delete::class) {
 
     println("taskE")
 }
+
+val printCredentials = tasks.register("printCredentials") {
+    if (project.hasProperty("username")) {
+        println("username: ${project.property("username")}")
+    }
+    if (project.hasProperty("password")) {
+        println("password: ${project.property("password")}")
+    }
+
+    println("android.useAndroidX: ${project.property("android.useAndroidX")}")
+}
