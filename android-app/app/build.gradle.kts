@@ -46,9 +46,17 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    signingConfigs {
+        create("release") {
+            storeFile = file("${projectDir}/../keystore.jks")
+            storePassword = "UcNW4T+KNp4miuu/GNxgjZ+GEc3sRcN1LPe2m8VC8j0="
+            keyAlias = "alias"
+            keyPassword = "xwySpzZdXMizwQfCOJkKQxr9DL+Y3jlAcHDy05OtmQg="
+        }
+    }
     buildTypes {
         getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
             minifyEnabled(false)
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
