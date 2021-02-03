@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -71,3 +73,5 @@ val taskE by tasks.registering(Delete::class) {
 
     println("taskE")
 }
+
+taskB.dependsOn(taskA)
