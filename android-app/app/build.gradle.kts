@@ -1,9 +1,16 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 
+open class SimplePluginExtension {
+    var message = "test"
+    var description = "I'm a plugin configuration extension"
+}
+
 class SimplePlugin : Plugin<Project> {
     override fun apply(project: Project) {
+        val extension = project.extensions.create<SimplePluginExtension>("simplePlugin")
+
         project.tasks.register("simplePlugin") {
-            println("Hello Plugin")
+            println("Hello Plugin ${extension.message}")
         }
     }
 }
@@ -14,6 +21,11 @@ plugins {
 }
 
 apply<SimplePlugin>()
+
+configure<SimplePluginExtension> {
+    message = "Configured"
+    description = "Some new description"
+}
 
 android {
     compileSdkVersion(29)
