@@ -41,3 +41,33 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }
+
+val taskA = tasks.register<Copy>("taskA") {
+    description = "Copy Stuff"
+    from("../a")
+    into("../b")
+    include("**/*")
+
+    println("taskA")
+}
+
+val taskB = tasks.register<Delete>("taskB") {
+    description = "Delete Stuff"
+    delete("../b")
+
+    println("taskB")
+}
+
+val taskC = tasks.register("taskC", Delete::class) {
+    description = "Detete Stuff"
+    delete("../b")
+
+    println("taskC")
+}
+
+val taskE by tasks.registering(Delete::class) {
+    description = "Delete stuff"
+    delete("../b")
+
+    println("taskE")
+}
